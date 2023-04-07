@@ -30,6 +30,12 @@ runs:
       shell: bash
       run: >
         dotnet jb inspectcode ${{ inputs.solution }}
-        --output=report.sarif.json
+        --output=results.sarif.json
         --format=Sarif
         --build
+
+    - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: results.sarif.json
+          category: resharper-inspectcode

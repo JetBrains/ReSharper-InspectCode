@@ -1,5 +1,5 @@
 name: 'JetBrains ReSharper InspectCode'
-description: 'C# static analysis using JetBrains ReSharper command line tools`
+description: 'C# static analysis using JetBrains ReSharper command line tools'
 inputs:
   solution:
     description: 'solutiuon file'

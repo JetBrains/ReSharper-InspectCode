@@ -5,9 +5,8 @@ inputs:
     description: 'solutiuon file'
     required: true
   dotnet-version:
-    required: true
+    required: false
     description: '.NET SDK version'
-    default: '6.0.x'
   resharper-version:
     description: 'ReSharper version'
     required: true

@@ -23,7 +23,9 @@ runs:
     - name: Install ReSharper command line tools
       shell: bash
       run: |
-        dotnet tool install JetBrains.ReSharper.GlobalTools --global --version ${{ inputs.resharper-version }}
+        dotnet new tool-manifest
+        dotnet tool install JetBrains.ReSharper.GlobalTools --version ${{ inputs.resharper-version }}
+        dotnet tool restore
 
     - name: Inspect code with ReSharper
       shell: bash

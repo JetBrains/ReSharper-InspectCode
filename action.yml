@@ -1,0 +1,35 @@
+name: 'JetBrains ReSharper InspectCode'
+description: 'C# static analysis using JetBrains ReSharper command line tools`
+inputs:
+  solution:
+    description: 'solutiuon file'
+    required: true
+  dotnet-version:
+    required: true
+    description: '.NET SDK version'
+    default: '6.0.x'
+  resharper-version:
+    description: 'ReSharper version'
+    required: true
+    default: '2023.1.0'
+    
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3.0.3
+      with:
+        dotnet-version: ${{ inputs.dotnet-version }}
+
+    - name: Install ReSharper command line tools
+      shell: bash
+      run: |
+        dotnet tool install JetBrains.ReSharper.GlobalTools --global --version ${{ inputs.resharper-version }}
+
+    - name: Inspect code with ReSharper
+      shell: bash
+      run: >
+        dotnet jb inspectcode ${{ inputs.solution }}
+        --output=report.sarif.json
+        --format=Sarif
+        --build

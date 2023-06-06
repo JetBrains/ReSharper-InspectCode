@@ -102,9 +102,9 @@ runs:
         --output=results.sarif.json
         --format=Sarif
         --build
-      ${{ if (inputs.format) }}:
+      ${{ if eq(inputs.format, true) }}:
         --format=${{ inputs.format }} 
-      ${{ if (inputs.source) }}:
+      ${{ if eq(inputs.source, true) }}:
         --source=${{ inputs.source }}
     
   - name: Upload SARIF file

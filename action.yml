@@ -1,40 +1,114 @@
-name: 'JetBrains ReSharper InspectCode'
-description: 'C# static analysis using JetBrains ReSharper command line tools'
+name: JetBrains Inspect Code
+description: C# static analysis tool
 inputs:
-  solution:
-    description: 'solutiuon file'
-    required: true
-  dotnet-version:
-    required: false
-    description: '.NET SDK version'
-  resharper-version:
-    description: 'ReSharper version'
-    required: true
-    default: '2023.1.0'
-    
+  settings:
+    description: "Path to the file to use custom settings from (default: Use R#'s solution shared settings if exists)"
+  output:
+    description: Write inspections report to specified file
+  format:
+    description: Write inspections report in specified format [Xml, Html, Text, Sarif]
+    default: "Xml"
+  jobs:
+    description: Run up to N jobs in parallel. 0 means as many as possible
+    default: "0"
+  absolute-paths:
+    description: Use absolute paths in inspections report
+    default: "False"
+  no-swea:
+    description: Force disable solution-wide analysis
+    default: "False"
+  swea:
+    description: Force enable solution-wide analysis
+    default: "False"
+  project:
+    description: 'Analyze only projects selected by provided wildcards (default: analyze all projects in solution)'
+  include:
+    description: 'Analyze only files selected by provided wildcards (default: analyze all files in solution)'
+  exclude:
+    description: 'Exclude files selected by provided wildcards from analysis (default: analyze all files in solution)'
+  dumpIssuesTypes:
+    description: Dump issues types
+    default: "False"
+  sEverity:
+    description: Minimal severity level to report [INFO, HINT, SUGGESTION, WARNING, ERROR]
+    default: "SUGGESTION"
+  debug:
+    description: Show debugging messages
+    default: "False"
+  verbosity:
+    description: Display this amount of information [OFF, FATAL, ERROR, WARN, INFO, VERBOSE, TRACE]
+    default: "INFO"
+  help:
+    description: Show help and exit
+  version:
+    description: Show tool version and exit
+  toolset:
+    description: 'MsBuild toolset version. Highest available is used by default. Example: --toolset=12.0'
+  toolset-path:
+    description: 'MsBuild toolset (exe/dll) path. Example: --toolset-path=/usr/local/msbuild/bin/current/MSBuild.exe'
+  mono:
+    description: 'Mono path. Empty to ignore Mono. Not specified for autodetect. Example: --mono=/Library/Frameworks/Mono.framework/Versions/Current/bin/mono'
+  dotnetcore:
+    description: '.NET Core path. Empty to ignore .NET Core. Not specified for autodetect. Example: --dotnetcore=/usr/local/share/dotnet/dotnet'
+  dotnetcoresdk:
+    description: '.NET Core SDK version. Example: --dotnetcoresdk=3.0.100'
+  disable-settings-layers:
+    description: 'Disable specified settings layers. Possible values: GlobalAll, GlobalPerProduct, SolutionShared, SolutionPersonal, ProjectShared, ProjectPersonal'
+  no-buildin-settings:
+    description: Suppress global, solution and project settings profile usage. Alias for --disable-settings-layers:GlobalAll;GlobalPerProduct;SolutionShared;SolutionPersonal;ProjectShared;ProjectPersonal
+    default: "False"
+  caches-home:
+    description: Path to the directory where produced caches will be stored
+  properties:
+    description: MSBuild properties
+  targets-for-references:
+    description: MSBuild targets. These targets will be executed to get referenced assemblies of projects.
+  targets-for-items:
+    description: MSBuild targets. These targets will be executed to get other items (e.g. Compile item) of projects.
+  eXtensions:
+    description: Install and use specified extensions
+  source:
+    description: Install extensions from specified source(s)
+  measure:
+    description: Measure own tool's performance [MEMORY, SAMPLING, TIMELINE]
+  no-build:
+    description: Do not build solution before processing
+    default: "False"
+  build:
+    description: Build solution before processing
+    default: "True"
+  target:
+    description: MsBuild target to execute before processing.
+    default: "Build"
+  telemetry-optout:
+    description: Opt out from telemetry
+  tool-version:
+    description: Tool Version
+    default: "232.0.20230602.0-eap05d"
 runs:
-  using: 'composite'
+  using: composite
   steps:
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3.0.3
-      with:
-        dotnet-version: ${{ inputs.dotnet-version }}
-
-    - name: Install ReSharper command line tools
-      shell: bash
-      run: |
-        dotnet tool install JetBrains.ReSharper.GlobalTools --global --version ${{ inputs.resharper-version }}
-
-    - name: Inspect code with ReSharper
-      shell: bash
-      run: >
-        jb inspectcode ${{ inputs.solution }}
+  - name: Setup .NET
+    uses: actions/setup-dotnet@v3.0.3
+    with:
+      dotnet-version: ${{ inputs.dotnet-version }}
+  - name: Install ReSharper command line tools
+    shell: bash
+    run: dotnet tool install JetBrains.ReSharper.GlobalTools --global --version ${{ inputs.tool-version }}
+  - name: Inspect code with ReSharper
+    shell: bash
+    run: |-
+      jb inspectcode ${{ inputs.solution }}
         --output=results.sarif.json
         --format=Sarif
         --build
-
-    - name: Upload SARIF file
-      uses: github/codeql-action/upload-sarif@v2
-      with:
-        sarif_file: results.sarif.json
-        category: resharper-inspectcode
+      ${{ if inputs.format }}:
+        --format=${{ inputs.format }} 
+      ${{ if inputs.source }}:
+        --source=${{ inputs.source }}
+    
+  - name: Upload SARIF file
+    uses: github/codeql-action/upload-sarif@v2
+    with:
+      sarif-file: results.sarif.json
+      category: resharper-inspectcode

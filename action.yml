@@ -83,9 +83,11 @@ inputs:
     default: "Build"
   telemetry-optout:
     description: Opt out from telemetry
+  solution:
+    description: Solution file
   tool-version:
     description: Tool Version
-    default: "232.0.20230602.0-eap05d"
+    default: "2023.2-EAP5D"
 runs:
   using: composite
   steps:
@@ -133,8 +135,10 @@ runs:
       INPUT_build: ${{ inputs.build }}
       INPUT_target: ${{ inputs.target }}
       INPUT_telemetry-optout: ${{ inputs.telemetry-optout }}
-      INPUT_tool-version: ${{ inputs.tool-version }}
-    run: "$command = \"jb inspectcode\" \r\ndir env:\\INPUT_* | where-object Value | %{ $command += \" --$($_.Name -replace \"^INPUT_\")=$($_.Value)\" }\r\nWrite-Output $command"
+    run: |-
+      $command = "jb inspectcode ${{ inputs.solution }}"
+      dir env:\INPUT_* | Where-Object Value | %{ $command += " --$($_.Name -replace "^INPUT_")=$($_.Value)" }
+      Invoke-Expression $command
   - name: Upload SARIF file
     if: inputs.format == 'Sarif'
     uses: github/codeql-action/upload-sarif@v2

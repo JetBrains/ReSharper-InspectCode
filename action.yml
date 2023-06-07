@@ -102,13 +102,9 @@ runs:
         --output=results.sarif.json
         --format=Sarif
         --build
-      ${{ if eq(inputs.format, true) }}:
-        --format=${{ inputs.format }} 
-      ${{ if eq(inputs.source, true) }}:
-        --source=${{ inputs.source }}
-    
   - name: Upload SARIF file
+    -if: eq(inputs.format,'Sarif')
     uses: github/codeql-action/upload-sarif@v2
     with:
-      sarif-file: results.sarif.json
+      sarif-file: ${{ inputs.output }}
       category: resharper-inspectcode

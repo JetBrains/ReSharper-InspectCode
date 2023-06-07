@@ -5,9 +5,10 @@ inputs:
     description: "Path to the file to use custom settings from (default: Use R#'s solution shared settings if exists)"
   output:
     description: Write inspections report to specified file
+    default: "results.sarif.json"
   format:
     description: Write inspections report in specified format [Xml, Html, Text, Sarif]
-    default: "Xml"
+    default: "Sarif"
   jobs:
     description: Run up to N jobs in parallel. 0 means as many as possible
     default: "0"
@@ -96,14 +97,46 @@ runs:
     shell: bash
     run: dotnet tool install JetBrains.ReSharper.GlobalTools --global --version ${{ inputs.tool-version }}
   - name: Inspect code with ReSharper
-    shell: bash
-    run: |-
-      jb inspectcode ${{ inputs.solution }}
-        --output=results.sarif.json
-        --format=Sarif
-        --build
+    shell: pwsh
+    env:
+      INPUT_settings: ${{ inputs.settings }}
+      INPUT_output: ${{ inputs.output }}
+      INPUT_format: ${{ inputs.format }}
+      INPUT_jobs: ${{ inputs.jobs }}
+      INPUT_absolute-paths: ${{ inputs.absolute-paths }}
+      INPUT_no-swea: ${{ inputs.no-swea }}
+      INPUT_swea: ${{ inputs.swea }}
+      INPUT_project: ${{ inputs.project }}
+      INPUT_include: ${{ inputs.include }}
+      INPUT_exclude: ${{ inputs.exclude }}
+      INPUT_dumpIssuesTypes: ${{ inputs.dumpIssuesTypes }}
+      INPUT_sEverity: ${{ inputs.sEverity }}
+      INPUT_debug: ${{ inputs.debug }}
+      INPUT_verbosity: ${{ inputs.verbosity }}
+      INPUT_help: ${{ inputs.help }}
+      INPUT_version: ${{ inputs.version }}
+      INPUT_toolset: ${{ inputs.toolset }}
+      INPUT_toolset-path: ${{ inputs.toolset-path }}
+      INPUT_mono: ${{ inputs.mono }}
+      INPUT_dotnetcore: ${{ inputs.dotnetcore }}
+      INPUT_dotnetcoresdk: ${{ inputs.dotnetcoresdk }}
+      INPUT_disable-settings-layers: ${{ inputs.disable-settings-layers }}
+      INPUT_no-buildin-settings: ${{ inputs.no-buildin-settings }}
+      INPUT_caches-home: ${{ inputs.caches-home }}
+      INPUT_properties: ${{ inputs.properties }}
+      INPUT_targets-for-references: ${{ inputs.targets-for-references }}
+      INPUT_targets-for-items: ${{ inputs.targets-for-items }}
+      INPUT_eXtensions: ${{ inputs.eXtensions }}
+      INPUT_source: ${{ inputs.source }}
+      INPUT_measure: ${{ inputs.measure }}
+      INPUT_no-build: ${{ inputs.no-build }}
+      INPUT_build: ${{ inputs.build }}
+      INPUT_target: ${{ inputs.target }}
+      INPUT_telemetry-optout: ${{ inputs.telemetry-optout }}
+      INPUT_tool-version: ${{ inputs.tool-version }}
+    run: "$command = \"jb inspectcode\" \r\ndir env:\\INPUT_* | %{ $command += \" --$($_.Name -replace \"^INPUT_\")=${{ inputs.$($_.Name) }}\" }"
   - name: Upload SARIF file
-    -if: eq(inputs.format,'Sarif')
+    if: eq(inputs.format, `Sarif`) 
     uses: github/codeql-action/upload-sarif@v2
     with:
       sarif-file: ${{ inputs.output }}

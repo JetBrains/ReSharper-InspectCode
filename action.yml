@@ -143,5 +143,5 @@ runs:
     if: inputs.format == 'Sarif'
     uses: github/codeql-action/upload-sarif@v2
     with:
-      sarif-file: ${{ inputs.output }}
+      sarif_file: ${{ inputs.output }}
       category: resharper-inspectcode

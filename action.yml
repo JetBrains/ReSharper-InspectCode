@@ -136,7 +136,7 @@ runs:
       INPUT_tool-version: ${{ inputs.tool-version }}
     run: "$command = \"jb inspectcode\" \r\ndir env:\\INPUT_* | %{ $command += \" --$($_.Name -replace \"^INPUT_\")=${{ inputs.$($_.Name) }}\" }"
   - name: Upload SARIF file
-    if: eq(inputs.format, `Sarif`) 
+    if: inputs.format == `Sarif`
     uses: github/codeql-action/upload-sarif@v2
     with:
       sarif-file: ${{ inputs.output }}

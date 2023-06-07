@@ -137,7 +137,7 @@ runs:
       INPUT_telemetry-optout: ${{ inputs.telemetry-optout }}
     run: |-
       $command = "jb inspectcode ${{ inputs.solution }}"
-      dir env:\INPUT_* | Where-Object Value | %{ $command += " --$($_.Name -replace "^INPUT_")=$($_.Value)" }
+      dir env:INPUT_* | Where-Object Value | %{ $command += " --$($_.Name -replace "^INPUT_")=$($_.Value)" }
       Invoke-Expression $command
   - name: Upload SARIF file
     if: inputs.format == 'Sarif'

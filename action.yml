@@ -1,4 +1,5 @@
 name: JetBrains Inspect Code
+author: JetBrains, Inc
 description: C# static analysis tool
 inputs:
   settings:
@@ -145,3 +146,6 @@ runs:
     with:
       sarif_file: ${{ inputs.output }}
       category: resharper-inspectcode
+branding:
+  color: GrayDark
+  icon: Hash

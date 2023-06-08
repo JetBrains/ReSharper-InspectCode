@@ -32,6 +32,6 @@ jobs:
           solution: ./YourSolution.sln
 ```
 
-## Input
+## Configuration
 
 Use GitHub Workflow editor to get a list of all supported inputs with description. 

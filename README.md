@@ -34,4 +34,11 @@ jobs:
 
 ## Configuration
 
-Use GitHub Workflow editor to get a list of all supported inputs with description. 
+Use [`with`](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepswith) to define any action parameters:
+
+```yaml
+with:
+  tools-version: 2023.2-eap03
+```
+
+You can use GitHub Workflow editor to get a list of all supported inputs with descriptions. 

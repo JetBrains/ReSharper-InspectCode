@@ -147,5 +147,5 @@ runs:
       sarif_file: ${{ inputs.output }}
       category: resharper-inspectcode
 branding:
-  color: GrayDark
+  color: gray-dark
   icon: Hash

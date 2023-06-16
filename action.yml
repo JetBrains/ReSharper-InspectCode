@@ -1,4 +1,4 @@
-name: JetBrains Inspect Code
+name: JetBrains ReSharper Inspect Code
 author: JetBrains, Inc
 description: C# static analysis tool
 inputs:

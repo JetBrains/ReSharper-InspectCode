@@ -27,7 +27,7 @@ jobs:
           submodules: recursive
 
       - name: Annotate
-        uses: derigel23/ReSharper-InspectCode@516f3a14d72c8666911b8e2e1498441a93b2a222
+        uses: JetBrains/ReSharper-InspectCode@v0.2
         with:
           solution: ./YourSolution.sln
 ```

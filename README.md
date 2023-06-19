@@ -30,6 +30,9 @@ jobs:
         uses: JetBrains/ReSharper-InspectCode@v0.2
         with:
           solution: ./YourSolution.sln
+
+    permissions:
+      security-events: write
 ```
 
 ## Configuration

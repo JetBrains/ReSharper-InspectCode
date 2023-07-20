@@ -41,7 +41,7 @@ jobs:
 Use [`with`](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepswith) to define any action parameters:
 ```yaml
 with:
-  tool-version: 2023.2-eap03
+  tool-version: 2023.2.0-eap09
 ```
 You can use GitHub Workflow editor to get a list of all supported inputs with descriptions. 
 |Name                     |Description                                                                                                                                                                               |Default           |

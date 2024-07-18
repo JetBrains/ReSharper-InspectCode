@@ -142,7 +142,7 @@ runs:
       Invoke-Expression $command
   - name: Upload SARIF file
     if: inputs.format == 'Sarif'
-    uses: github/codeql-action/upload-sarif@v2
+    uses: github/codeql-action/upload-sarif@v3
     with:
       sarif_file: ${{ inputs.output }}
       category: resharper-inspectcode

@@ -88,7 +88,7 @@ inputs:
     description: Solution file
   tool-version:
     description: Tool Version
-    default: "2024.1.4"
+    default: "2024.2.0"
 runs:
   using: composite
   steps:

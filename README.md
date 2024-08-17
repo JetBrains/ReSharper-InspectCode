@@ -41,7 +41,7 @@ jobs:
 Use [`with`](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepswith) to define any action parameters:
 ```yaml
 with:
-  tool-version: 2023.2.0-eap09
+  tool-version: 2024.2.0
 ```
 You can use GitHub Workflow editor to get a list of all supported inputs with descriptions. 
 |Name                     |Description                                                                                                                                                                               |Default           |
@@ -81,4 +81,4 @@ You can use GitHub Workflow editor to get a list of all supported inputs with de
 |`target`                 |MsBuild target to execute before processing.                                                                                                                                              |Build             |
 |`telemetry-optout`       |Opt out from telemetry                                                                                                                                                                    |                  |
 |`solution`               |Solution file                                                                                                                                                                             |                  |
-|`tool-version`           |Tool Version                                                                                                                                                                              |2023.2-EAP5D      |
+|`tool-version`           |Tool Version                                                                                                                                                                              |2024.2.0          |

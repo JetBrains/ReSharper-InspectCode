@@ -82,13 +82,11 @@ inputs:
   target:
     description: MsBuild target to execute before processing.
     default: "Build"
-  telemetry-optout:
-    description: Opt out from telemetry
   solution:
     description: Solution file
   tool-version:
     description: Tool Version
-    default: "2024.2.0"
+    default: "2024.2.7"
 runs:
   using: composite
   steps:
@@ -135,7 +133,6 @@ runs:
       INPUT_no-build: ${{ inputs.no-build }}
       INPUT_build: ${{ inputs.build }}
       INPUT_target: ${{ inputs.target }}
-      INPUT_telemetry-optout: ${{ inputs.telemetry-optout }}
     run: |-
       $command = "jb inspectcode ${{ inputs.solution }}"
       dir env:INPUT_* | Where-Object Value | %{ $command += " --$($_.Name -replace "^INPUT_")=$($_.Value)" }

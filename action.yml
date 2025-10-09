@@ -53,7 +53,7 @@ inputs:
   dotnetcore:
     description: '.NET Core path. Empty to ignore .NET Core. Not specified for autodetect. Example: --dotnetcore=/usr/local/share/dotnet/dotnet'
   dotnetcoresdk:
-    description: '.NET Core SDK version. Example: --dotnetcoresdk=3.0.100'
+    description: '.NET Core SDK version. Example: --dotnetcoresdk=8.0.100'
   disable-settings-layers:
     description: 'Disable specified settings layers. Possible values: GlobalAll, GlobalPerProduct, SolutionShared, SolutionPersonal, ProjectShared, ProjectPersonal'
   no-buildin-settings:
@@ -86,7 +86,7 @@ inputs:
     description: Solution file
   tool-version:
     description: Tool Version
-    default: "2025.2.0"
+    default: "2025.2.3"
 runs:
   using: composite
   steps:

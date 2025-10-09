@@ -28,7 +28,7 @@ jobs:
 
       - name: Annotate
         # You may pin to the exact commit or the version.
-        uses: JetBrains/ReSharper-InspectCode@v0.10
+        uses: JetBrains/ReSharper-InspectCode@v0.11
         with:
           solution: ./YourSolution.sln
 
@@ -41,7 +41,7 @@ jobs:
 Use [`with`](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepswith) to define any action parameters:
 ```yaml
 with:
-  tool-version: 2025.2.0
+  tool-version: 2025.2.3
 ```
 You can use GitHub Workflow editor to get a list of all supported inputs with descriptions. 
 |Name                     |Description                                                                                                                                                                               |Default           |
@@ -66,7 +66,7 @@ You can use GitHub Workflow editor to get a list of all supported inputs with de
 |`toolset-path`           |MsBuild toolset (exe/dll) path. Example: --toolset-path=/usr/local/msbuild/bin/current/MSBuild.exe                                                                                        |                  |
 |`mono`                   |Mono path. Empty to ignore Mono. Not specified for autodetect. Example: --mono=/Library/Frameworks/Mono.framework/Versions/Current/bin/mono                                               |                  |
 |`dotnetcore`             |.NET Core path. Empty to ignore .NET Core. Not specified for autodetect. Example: --dotnetcore=/usr/local/share/dotnet/dotnet                                                             |                  |
-|`dotnetcoresdk`          |.NET Core SDK version. Example: --dotnetcoresdk=3.0.100                                                                                                                                   |                  |
+|`dotnetcoresdk`          |.NET Core SDK version. Example: --dotnetcoresdk=8.0.100                                                                                                                                   |                  |
 |`disable-settings-layers`|Disable specified settings layers. Possible values: GlobalAll, GlobalPerProduct, SolutionShared, SolutionPersonal, ProjectShared, ProjectPersonal                                         |                  |
 |`no-buildin-settings`    |Suppress global, solution and project settings profile usage. Alias for --disable-settings-layers:GlobalAll;GlobalPerProduct;SolutionShared;SolutionPersonal;ProjectShared;ProjectPersonal|False             |
 |`caches-home`            |Path to the directory where produced caches will be stored                                                                                                                                |                  |
@@ -80,4 +80,4 @@ You can use GitHub Workflow editor to get a list of all supported inputs with de
 |`build`                  |Build solution before processing                                                                                                                                                          |True              |
 |`target`                 |MsBuild target to execute before processing.                                                                                                                                              |Build             |
 |`solution`               |Solution file                                                                                                                                                                             |                  |
-|`tool-version`           |Tool Version                                                                                                                                                                              |2025.2.0          |
+|`tool-version`           |Tool Version                                                                                                                                                                              |2025.2.3          |

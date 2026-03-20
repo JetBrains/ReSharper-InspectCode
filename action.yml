@@ -86,12 +86,12 @@ inputs:
     description: Solution file
   tool-version:
     description: Tool Version
-    default: "2025.2.3"
+    default: "2025.3.3"
 runs:
   using: composite
   steps:
   - name: Setup .NET
-    uses: actions/setup-dotnet@v4
+    uses: actions/setup-dotnet@v5
     with:
       dotnet-version: ${{ inputs.dotnet-version }}
   - name: Install ReSharper command line tools
@@ -139,7 +139,7 @@ runs:
       Invoke-Expression $command
   - name: Upload SARIF file
     if: inputs.format == 'Sarif'
-    uses: github/codeql-action/upload-sarif@v3
+    uses: github/codeql-action/upload-sarif@v4
     with:
       sarif_file: ${{ inputs.output }}
       category: resharper-inspectcode

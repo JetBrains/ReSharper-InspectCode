@@ -28,7 +28,7 @@ jobs:
 
       - name: Annotate
         # You may pin to the exact commit or the version.
-        uses: JetBrains/ReSharper-InspectCode@v0.11
+        uses: JetBrains/ReSharper-InspectCode@v0.13
         with:
           solution: ./YourSolution.sln
 
@@ -41,7 +41,7 @@ jobs:
 Use [`with`](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepswith) to define any action parameters:
 ```yaml
 with:
-  tool-version: 2025.2.3
+  tool-version: 2025.3.3
 ```
 You can use GitHub Workflow editor to get a list of all supported inputs with descriptions. 
 |Name                     |Description                                                                                                                                                                               |Default           |
@@ -80,4 +80,20 @@ You can use GitHub Workflow editor to get a list of all supported inputs with de
 |`build`                  |Build solution before processing                                                                                                                                                          |True              |
 |`target`                 |MsBuild target to execute before processing.                                                                                                                                              |Build             |
 |`solution`               |Solution file                                                                                                                                                                             |                  |
-|`tool-version`           |Tool Version                                                                                                                                                                              |2025.2.3          |
+|`tool-version`           |Tool Version                                                                                                                                                                              |2025.3.3          |
+|`dotnet-version`         |.NET SDK version used to install and run ReSharper command line tools                                                                                                                    |8.0.x             |
+
+## Outputs
+
+|Name            |Description                                     |
+|----------------|------------------------------------------------|
+|`report-file`   |Path to the generated inspection report file    |
+|`report-format` |Output format used for the inspection report    |
+
+## Release process for `v0.13`
+
+This PR prepares the repository for the `v0.13` action release.
+
+After this PR is merged into `main`:
+1. Create the `v0.13` tag on the merge commit.
+2. Optionally create a GitHub Release for `v0.13`.

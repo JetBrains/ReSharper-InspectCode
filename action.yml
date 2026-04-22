@@ -89,7 +89,7 @@ inputs:
     default: "2025.3.3"
   dotnet-version:
     description: .NET SDK version used to install and run ReSharper command line tools
-    default: "8.0.x"
+    default: "10.x"
 outputs:
   report-file:
     description: Path to the generated inspection report file

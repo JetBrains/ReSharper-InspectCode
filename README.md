@@ -22,7 +22,7 @@ jobs:
   inspect-code:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -89,11 +89,3 @@ You can use GitHub Workflow editor to get a list of all supported inputs with de
 |----------------|------------------------------------------------|
 |`report-file`   |Path to the generated inspection report file    |
 |`report-format` |Output format used for the inspection report    |
-
-## Release process for `v0.13`
-
-This PR prepares the repository for the `v0.13` action release.
-
-After this PR is merged into `main`:
-1. Create the `v0.13` tag on the merge commit.
-2. Optionally create a GitHub Release for `v0.13`.

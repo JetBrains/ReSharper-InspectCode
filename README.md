@@ -81,7 +81,7 @@ You can use GitHub Workflow editor to get a list of all supported inputs with de
 |`target`                 |MsBuild target to execute before processing.                                                                                                                                              |Build             |
 |`solution`               |Solution file                                                                                                                                                                             |                  |
 |`tool-version`           |Tool Version                                                                                                                                                                              |2025.3.3          |
-|`dotnet-version`         |.NET SDK version used to install and run ReSharper command line tools                                                                                                                    |8.0.x             |
+|`dotnet-version`         |.NET SDK version used to install and run ReSharper command line tools                                                                                                                    |10.x              |
 
 ## Outputs
 

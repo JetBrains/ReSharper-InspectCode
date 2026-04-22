@@ -86,7 +86,7 @@ inputs:
     description: Solution file
   tool-version:
     description: Tool Version
-    default: "2025.3.3"
+    default: "2026.1.0.1"
   dotnet-version:
     description: .NET SDK version used to install and run ReSharper command line tools
     default: "10.x"

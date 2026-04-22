@@ -41,7 +41,7 @@ jobs:
 Use [`with`](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepswith) to define any action parameters:
 ```yaml
 with:
-  tool-version: 2025.3.3
+  tool-version: 2026.1.0.1
 ```
 You can use GitHub Workflow editor to get a list of all supported inputs with descriptions. 
 |Name                     |Description                                                                                                                                                                               |Default           |
@@ -80,7 +80,7 @@ You can use GitHub Workflow editor to get a list of all supported inputs with de
 |`build`                  |Build solution before processing                                                                                                                                                          |True              |
 |`target`                 |MsBuild target to execute before processing.                                                                                                                                              |Build             |
 |`solution`               |Solution file                                                                                                                                                                             |                  |
-|`tool-version`           |Tool Version                                                                                                                                                                              |2025.3.3          |
+|`tool-version`           |Tool Version                                                                                                                                                                              |2026.1.0.1        |
 |`dotnet-version`         |.NET SDK version used to install and run ReSharper command line tools                                                                                                                    |10.x              |
 
 ## Outputs

@@ -91,7 +91,7 @@ runs:
   using: composite
   steps:
   - name: Setup .NET
-    uses: actions/setup-dotnet@v5
+    uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7
     with:
       dotnet-version: ${{ inputs.dotnet-version }}
   - name: Install ReSharper command line tools
@@ -139,7 +139,7 @@ runs:
       Invoke-Expression $command
   - name: Upload SARIF file
     if: inputs.format == 'Sarif'
-    uses: github/codeql-action/upload-sarif@v4
+    uses: github/codeql-action/upload-sarif@95e58e9a2cdfd71adc6e0353d5c52f41a045d225
     with:
       sarif_file: ${{ inputs.output }}
       category: resharper-inspectcode

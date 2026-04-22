@@ -147,17 +147,22 @@ runs:
       INPUT_solution: ${{ inputs.solution }}
     run: |-
       $arguments = @()
+      $positionalInputs = @("solution")
       Get-ChildItem env:INPUT_* | Where-Object Value | ForEach-Object {
         $optionName = $_.Name -replace "^INPUT_"
-        if ($optionName -ne "solution") {
+        if ($optionName -notin $positionalInputs) {
           $arguments += "--$optionName=$($_.Value)"
         }
       }
 
-      if ("${{ inputs.solution }}") {
-        & jb inspectcode "${{ inputs.solution }}" @arguments
+      if ($env:INPUT_solution) {
+        & jb inspectcode "$env:INPUT_solution" @arguments
       } else {
         & jb inspectcode @arguments
+      }
+
+      if ($LASTEXITCODE -ne 0) {
+        exit $LASTEXITCODE
       }
 
       "report-file=${{ inputs.output }}" >> $env:GITHUB_OUTPUT

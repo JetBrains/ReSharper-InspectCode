@@ -1,0 +1,30 @@
+name: Action CI
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run action smoke test
+        id: inspectcode
+        uses: ./
+        with:
+          help: "True"
+          format: "Text"
+          output: "inspectcode.txt"
+
+      - name: Validate action outputs
+        shell: bash
+        run: |
+          test "${{ steps.inspectcode.outputs.report-file }}" = "inspectcode.txt"
+          test "${{ steps.inspectcode.outputs.report-format }}" = "Text"

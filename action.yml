@@ -87,6 +87,16 @@ inputs:
   tool-version:
     description: Tool Version
     default: "2025.3.3"
+  dotnet-version:
+    description: .NET SDK version used to install and run ReSharper command line tools
+    default: "8.0.x"
+outputs:
+  report-file:
+    description: Path to the generated inspection report file
+    value: ${{ steps.inspectcode.outputs.report-file }}
+  report-format:
+    description: Output format used for the inspection report
+    value: ${{ steps.inspectcode.outputs.report-format }}
 runs:
   using: composite
   steps:
@@ -98,6 +108,7 @@ runs:
     shell: bash
     run: dotnet tool install JetBrains.ReSharper.GlobalTools --global --version ${{ inputs.tool-version }}
   - name: Inspect code with ReSharper
+    id: inspectcode
     shell: pwsh
     env:
       INPUT_settings: ${{ inputs.settings }}
@@ -133,10 +144,24 @@ runs:
       INPUT_no-build: ${{ inputs.no-build }}
       INPUT_build: ${{ inputs.build }}
       INPUT_target: ${{ inputs.target }}
+      INPUT_solution: ${{ inputs.solution }}
     run: |-
-      $command = "jb inspectcode ${{ inputs.solution }}"
-      dir env:INPUT_* | Where-Object Value | %{ $command += " --$($_.Name -replace "^INPUT_")=$($_.Value)" }
-      Invoke-Expression $command
+      $arguments = @()
+      Get-ChildItem env:INPUT_* | Where-Object Value | ForEach-Object {
+        $optionName = $_.Name -replace "^INPUT_"
+        if ($optionName -ne "solution") {
+          $arguments += "--$optionName=$($_.Value)"
+        }
+      }
+
+      if ("${{ inputs.solution }}") {
+        & jb inspectcode "${{ inputs.solution }}" @arguments
+      } else {
+        & jb inspectcode @arguments
+      }
+
+      "report-file=${{ inputs.output }}" >> $env:GITHUB_OUTPUT
+      "report-format=${{ inputs.format }}" >> $env:GITHUB_OUTPUT
   - name: Upload SARIF file
     if: inputs.format == 'Sarif'
     uses: github/codeql-action/upload-sarif@95e58e9a2cdfd71adc6e0353d5c52f41a045d225 # v4

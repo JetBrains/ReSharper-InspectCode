@@ -10,6 +10,9 @@ inputs:
   format:
     description: Write inspections report in specified format [Xml, Html, Text, Sarif]
     default: "Sarif"
+  upload-sarif:
+    description: Upload SARIF report to GitHub code scanning
+    default: "True"
   jobs:
     description: Run up to N jobs in parallel. 0 means as many as possible
     default: "0"
@@ -168,7 +171,7 @@ runs:
       "report-file=${{ inputs.output }}" >> $env:GITHUB_OUTPUT
       "report-format=${{ inputs.format }}" >> $env:GITHUB_OUTPUT
   - name: Upload SARIF file
-    if: inputs.format == 'Sarif'
+    if: inputs.format == 'Sarif' && inputs.upload-sarif == 'True'
     uses: github/codeql-action/upload-sarif@95e58e9a2cdfd71adc6e0353d5c52f41a045d225 # v4
     with:
       sarif_file: ${{ inputs.output }}

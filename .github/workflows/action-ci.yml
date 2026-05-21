@@ -20,11 +20,12 @@ jobs:
         uses: ./
         with:
           help: "True"
-          format: "Text"
-          output: "inspectcode.txt"
+          format: "Sarif"
+          output: "inspectcode.sarif.json"
+          upload-sarif: "False"
 
       - name: Validate action outputs
         shell: bash
         run: |
-          test "${{ steps.inspectcode.outputs.report-file }}" = "inspectcode.txt"
-          test "${{ steps.inspectcode.outputs.report-format }}" = "Text"
+          test "${{ steps.inspectcode.outputs.report-file }}" = "inspectcode.sarif.json"
+          test "${{ steps.inspectcode.outputs.report-format }}" = "Sarif"

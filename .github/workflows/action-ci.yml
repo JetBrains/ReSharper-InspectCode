@@ -22,7 +22,7 @@ jobs:
           help: "True"
           format: "Sarif"
           output: "inspectcode.sarif.json"
-          upload-sarif: "False"
+          upload-sarif: "false"
 
       - name: Validate action outputs
         shell: bash

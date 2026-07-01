@@ -104,7 +104,7 @@ runs:
   using: composite
   steps:
   - name: Setup .NET
-    uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7 # v5
+    uses: actions/setup-dotnet@9a946fdbd5fb07b82b2f5a4466058b876ab72bb2 # v5
     with:
       dotnet-version: ${{ inputs.dotnet-version }}
   - name: Install ReSharper command line tools
@@ -172,7 +172,7 @@ runs:
       "report-format=${{ inputs.format }}" >> $env:GITHUB_OUTPUT
   - name: Upload SARIF file
     if: inputs.format == 'Sarif' && inputs.upload-sarif == 'true'
-    uses: github/codeql-action/upload-sarif@95e58e9a2cdfd71adc6e0353d5c52f41a045d225 # v4
+    uses: github/codeql-action/upload-sarif@8aad20d150bbac5944a9f9d289da16a4b0d87c1e # v4
     with:
       sarif_file: ${{ inputs.output }}
       category: resharper-inspectcode

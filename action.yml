@@ -104,7 +104,7 @@ runs:
   using: composite
   steps:
   - name: Setup .NET
-    uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v5
+    uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6
     with:
       dotnet-version: ${{ inputs.dotnet-version }}
   - name: Install ReSharper command line tools

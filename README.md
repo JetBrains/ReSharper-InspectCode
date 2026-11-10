@@ -28,7 +28,7 @@ jobs:
 
       - name: Annotate
         # You may pin to the exact commit or the version.
-        uses: JetBrains/ReSharper-InspectCode@v0.13
+        uses: JetBrains/ReSharper-InspectCode@v2026.3.0
         with:
           solution: ./YourSolution.sln
           upload-sarif: false
